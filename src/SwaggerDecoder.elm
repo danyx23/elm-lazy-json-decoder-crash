@@ -47,7 +47,7 @@ decodeSchemaOrReference : Decoder SchemaOrReference
 decodeSchemaOrReference =
     oneOf
         [ map ReferencedSchema <| field "$ref" string
-        , map SpecifiedSchema decodeSchema
+        , map SpecifiedSchema (lazy (\_ -> decodeSchema))
         ]
 
 
